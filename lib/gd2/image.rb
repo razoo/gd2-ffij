@@ -1,4 +1,3 @@
-require 'ffi'
 #
 # Ruby/Gd2 -- Ruby binding for gd 2 graphics library
 #
