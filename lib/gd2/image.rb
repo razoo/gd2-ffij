@@ -201,7 +201,7 @@ module Gd2
 
         file = File.read(filename)
         file = file.force_encoding("BINARY") if file.respond_to? :force_encoding
-        file_ptr = FFI::MemoryPointer.new(file.size, 1, false)
+        file_ptr = ::FFI::MemoryPointer.new(file.size, 1, false)
         file_ptr.put_bytes(0, file)
 
         Gd2FFIJ.send(create_sym, file.size, file_ptr)
