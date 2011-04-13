@@ -1,11 +1,11 @@
 #
-# Ruby/Gd2 -- Ruby binding for gd 2 graphics library
+# Ruby/GD2 -- Ruby binding for gd 2 graphics library
 #
 # Copyright © 2005 Robert Leslie, 2010 J Smith
 #
-# This file is part of Ruby/Gd2.
+# This file is part of Ruby/GD2.
 #
-# Ruby/Gd2 is free software; you can redistribute it and/or modify it under
+# Ruby/GD2 is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
@@ -20,7 +20,7 @@
 # 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-module Gd2
+module GD2
   #
   # = Description
   #
@@ -50,14 +50,14 @@ module Gd2
     private_class_method :new
 
     def self.font_ptr   #:nodoc:
-      Gd2FFIJ.send(font_sym)
+      GD2FFI.send(font_sym)
     end
 
     def self.draw(image_ptr, x, y, angle, string, fg)   #:nodoc:
       raise ArgumentError, "Angle #{angle} not supported for #{self}" unless
         angle == 0.degrees || angle == 90.degrees
 
-      Gd2FFIJ.send(angle > 0 ? :gdImageStringUp : :gdImageString, image_ptr,
+      GD2FFI.send(angle > 0 ? :gdImageStringUp : :gdImageString, image_ptr,
         font_ptr, x.to_i, y.to_i, string, fg.to_i)
       nil
     end
@@ -120,7 +120,7 @@ module Gd2
 
         if count.zero?
           raise FreeTypeError, 'FreeType library failed to initialize' unless
-            Gd2FFIJ.send(:gdFontCacheSetup).zero?
+            GD2FFI.send(:gdFontCacheSetup).zero?
         end
 
         ObjectSpace.define_finalizer(font, font_finalizer)
@@ -134,7 +134,7 @@ module Gd2
     def self.unregister
       Thread.exclusive do
         @@fontcount -= 1
-        Gd2FFIJ.send(:gdFontCacheShutdown) if @@fontcount.zero?
+        GD2FFI.send(:gdFontCacheShutdown) if @@fontcount.zero?
       end
     end
 
@@ -154,7 +154,7 @@ module Gd2
     # library must have been built with fontconfig support. Raises an error if
     # fontconfig support is unavailable.
     def self.fontconfig=(want)
-      avail = !Gd2FFIJ.send(:gdFTUseFontConfig, want ? 1 : 0).zero?
+      avail = !GD2FFI.send(:gdFTUseFontConfig, want ? 1 : 0).zero?
       raise FontconfigError, 'Fontconfig not available' if want && !avail
       @@fontconfig = want
     end
@@ -228,12 +228,12 @@ module Gd2
 
       strex = strex(false, true)
       args = [ nil, nil, 0, @fontname, @ptsize, 0.0, 0, 0, '', strex ]
-      r = Gd2FFIJ.send(:gdImageStringFTEx, *args)
+      r = GD2FFI.send(:gdImageStringFTEx, *args)
 
       raise FreeTypeError.new(r.read_string) unless r.null?
       @fontpath = strex[:fontpath].read_string
     ensure
-      Gd2FFIJ.send(:gdFree, strex[:fontpath])
+      GD2FFI.send(:gdFree, strex[:fontpath])
     end
 
     def inspect   #:nodoc:
@@ -251,7 +251,7 @@ module Gd2
       strex = strex(true)
       args = [ image_ptr, brect, fg, @fontname, @ptsize, angle.to_f, x.to_i, y.to_i, string.gsub('&', '&amp;'), strex ]
 
-      r = Gd2FFIJ.send(:gdImageStringFTEx, *args)
+      r = GD2FFI.send(:gdImageStringFTEx, *args)
       raise FreeTypeError.new(r.read_string) unless r.null?
       brect = brect.read_array_of_int(8)
 
@@ -259,7 +259,7 @@ module Gd2
         begin
           xshow = xshow.read_string.split(' ').map { |e| e.to_f }
         ensure
-          Gd2FFIJ.send(:gdFree, strex[:xshow])
+          GD2FFI.send(:gdFree, strex[:xshow])
         end
       else
         xshow = []
@@ -285,7 +285,7 @@ module Gd2
       image_ptr, cx, cy, radius, text_radius, fill_portion,
       top, bottom, fgcolor
     ) #:nodoc:
-      r = Gd2FFIJ.send(
+      r = GD2FFI.send(
         :gdImageStringFTCircle, image_ptr, cx.to_i, cy.to_i,
         radius.to_f, text_radius.to_f, fill_portion.to_f, @fontname, @ptsize,
         top || '', bottom || '', fgcolor.to_i

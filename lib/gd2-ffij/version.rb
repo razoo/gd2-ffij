@@ -1,5 +1,5 @@
-module Gd2
-  module Gd2FFIJ
+module GD2
+  module GD2FFI
     VERSION = "0.0.3"
   end
 end

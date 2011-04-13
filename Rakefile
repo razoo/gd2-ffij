@@ -6,7 +6,7 @@ require 'rake/testtask'
 
 Bundler::GemHelper.install_tasks
 
-desc 'Test Gd2 interface'
+desc 'Test GD2 interface'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.pattern = 'test/**/*_test.rb'

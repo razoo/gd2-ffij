@@ -1,5 +1,5 @@
 
- Ruby/Gd2 - Ruby binding for gd 2.x graphics library
+ Ruby/GD2 - Ruby binding for gd 2.x graphics library
  Copyright (C) 2005-2006 Robert Leslie, 2010 J Smith <dark.panda@gmail.com>
 
  This program is free software; you can redistribute it and/or modify

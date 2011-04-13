@@ -1,11 +1,11 @@
 #
-# Ruby/Gd2 -- Ruby binding for gd 2 graphics library
+# Ruby/GD2 -- Ruby binding for gd 2 graphics library
 #
 # Copyright © 2010 J Smith
 #
-# This file is part of Ruby/Gd2.
+# This file is part of Ruby/GD2.
 #
-# Ruby/Gd2 is free software; you can redistribute it and/or modify it under
+# Ruby/GD2 is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
@@ -20,7 +20,7 @@
 # 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-module Gd2::FFIStruct
+module GD2::FFIStruct
   class FTStringExtraPtr < FFI::Struct
     layout(
       :flags,       :int,
@@ -70,7 +70,7 @@ module Gd2::FFIStruct
     )
 
     def self.release(ptr)
-      Gd2FFIJ.gdImageDestroy(ptr)
+      GD2FFI.gdImageDestroy(ptr)
     end
   end
 end

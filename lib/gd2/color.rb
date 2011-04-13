@@ -1,11 +1,11 @@
 #
-# Ruby/Gd2 -- Ruby binding for gd 2 graphics library
+# Ruby/GD2 -- Ruby binding for gd 2 graphics library
 #
 # Copyright © 2005 Robert Leslie, 2010 J Smith
 #
-# This file is part of Ruby/Gd2.
+# This file is part of Ruby/GD2.
 #
-# Ruby/Gd2 is free software; you can redistribute it and/or modify it under
+# Ruby/GD2 is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
@@ -20,7 +20,7 @@
 # 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-module Gd2
+module GD2
   #
   # = Description
   #
@@ -215,7 +215,7 @@ module Gd2
     # Alpha blend this color with the given color. If this color is associated
     # with a palette entry, this also modifies the palette.
     def alpha_blend!(other)
-      self.rgba = Gd2FFIJ.send(:gdAlphaBlend, rgba.to_i, other.rgba.to_i)
+      self.rgba = GD2FFI.send(:gdAlphaBlend, rgba.to_i, other.rgba.to_i)
       self
     end
     alias << alpha_blend!
