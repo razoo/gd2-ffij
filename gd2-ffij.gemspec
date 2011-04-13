@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{gd2-ffij is a refactoring of the Ruby/Gd2 library implemented with FFI}
   s.description = %q{gd2-ffij is a refactoring of the Ruby/Gd2 library implemented with FFI}
 
-  s.add_dependency 'ffi'
+  s.add_dependency = 'ffi'
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

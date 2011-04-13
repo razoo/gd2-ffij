@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     gd2-ffij (0.0.3)
+      ffi
 
 GEM
   remote: http://rubygems.org/
@@ -14,5 +15,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ffi
   gd2-ffij!
