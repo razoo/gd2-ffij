@@ -1,11 +1,11 @@
 #
-# Ruby/GD2 -- Ruby binding for gd 2 graphics library
+# Ruby/Gd2 -- Ruby binding for gd 2 graphics library
 #
 # Copyright © 2005 Robert Leslie, 2010 J Smith
 #
-# This file is part of Ruby/GD2.
+# This file is part of Ruby/Gd2.
 #
-# Ruby/GD2 is free software; you can redistribute it and/or modify it under
+# Ruby/Gd2 is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
@@ -20,7 +20,7 @@
 # 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-module GD2
+module Gd2
   # = Description
   #
   # Palette objects are associated with an Image and hold the selection of
@@ -103,7 +103,7 @@ module GD2
     # a color from the palette that is closest to it.
     def resolve(color)
       raise TypeError unless color.kind_of? Color
-      c = GD2FFI.send(:gdImageColorResolveAlpha, @image.image_ptr,
+      c = Gd2FFIJ.send(:gdImageColorResolveAlpha, @image.image_ptr,
         color.red.to_i, color.green.to_i, color.blue.to_i, color.alpha.to_i)
       c == -1 ? nil : get_color(c)
     end
@@ -112,7 +112,7 @@ module GD2
     # if the color is not presently in the palette.
     def exact(color)
       raise TypeError unless color.kind_of? Color
-      c = GD2FFI.send(:gdImageColorExactAlpha, @image.image_ptr,
+      c = Gd2FFIJ.send(:gdImageColorExactAlpha, @image.image_ptr,
         color.red.to_i, color.green.to_i, color.blue.to_i, color.alpha.to_i)
       c == -1 ? nil : get_color(c)
     end
@@ -128,7 +128,7 @@ module GD2
     # according to Euclidian distance.
     def closest(color)
       raise TypeError unless color.kind_of? Color
-      c = GD2FFI.send(:gdImageColorClosestAlpha, @image.image_ptr,
+      c = Gd2FFIJ.send(:gdImageColorClosestAlpha, @image.image_ptr,
         color.red.to_i, color.green.to_i, color.blue.to_i, color.alpha.to_i)
       c == -1 ? nil : get_color(c)
     end
@@ -137,7 +137,7 @@ module GD2
     # according to hue, whiteness, and blackness.
     def closest_hwb(color)
       raise TypeError unless color.kind_of? Color
-      c = GD2FFI.send(:gdImageColorClosestHWB, @image.image_ptr,
+      c = Gd2FFIJ.send(:gdImageColorClosestHWB, @image.image_ptr,
         color.red.to_i, color.green.to_i, color.blue.to_i)
       c == -1 ? nil : get_color(c)
     end
@@ -147,7 +147,7 @@ module GD2
     # raises an error for Image::IndexedColor palettes if the palette is full.
     def allocate(color)
       raise TypeError unless color.kind_of? Color
-      c = GD2FFI.send(:gdImageColorAllocateAlpha, @image.image_ptr,
+      c = Gd2FFIJ.send(:gdImageColorAllocateAlpha, @image.image_ptr,
         color.red.to_i, color.green.to_i, color.blue.to_i, color.alpha.to_i)
       c == -1 ? raise(Palette::PaletteFullError, 'Palette is full') :
         get_color(c)
@@ -164,7 +164,7 @@ module GD2
     def deallocate(color)
       color = exact(color) unless color.index
       return nil if color.nil? || color.index.nil?
-      GD2FFI.send(:gdImageColorDeallocate, @image.image_ptr, color.index.to_i)
+      Gd2FFIJ.send(:gdImageColorDeallocate, @image.image_ptr, color.index.to_i)
       nil
     end
 

@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    gd2-ffij (0.0.3)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    ffi (1.0.7)
+      rake (>= 0.8.7)
+    rake (0.8.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ffi
+  gd2-ffij!

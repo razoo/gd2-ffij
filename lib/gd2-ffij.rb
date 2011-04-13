@@ -1,11 +1,11 @@
 #
-# Ruby/GD2 -- Ruby binding for gd 2 graphics library
+# Ruby/Gd2 -- Ruby binding for gd 2 graphics library
 #
 # Copyright © 2005-2006 Robert Leslie, 2010 J Smith
 #
-# This file is part of Ruby/GD2.
+# This file is part of Ruby/Gd2.
 #
-# Ruby/GD2 is free software; you can redistribute it and/or modify it under
+# Ruby/Gd2 is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
@@ -23,13 +23,14 @@
 require 'ffi'
 require 'rbconfig'
 
-module GD2
-  VERSION = '0.0.3'.freeze
+# module Gd2
+#   module Gd2FFIJ
 
-  module GD2FFI
+module Gd2
+  module Gd2FFIJ
     def self.gd_library_name
-      if ENV['GD2_LIBRARY_PATH']
-        ENV['GD2_LIBRARY_PATH']
+      if ENV['Gd2_LIBRARY_PATH']
+        ENV['Gd2_LIBRARY_PATH']
       else
         lib = case Config::CONFIG['arch']
         when /darwin/

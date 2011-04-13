@@ -1,5 +1,3 @@
-*.kpf
-*~
-.DS_Store
-*tmp*
-pkg/
+*.gem
+.bundle
+pkg/*

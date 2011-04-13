@@ -1,11 +1,11 @@
 #
-# Ruby/GD2 -- Ruby binding for gd 2 graphics library
+# Ruby/Gd2 -- Ruby binding for gd 2 graphics library
 #
 # Copyright © 2005 Robert Leslie, 2010 J Smith
 #
-# This file is part of Ruby/GD2.
+# This file is part of Ruby/Gd2.
 #
-# Ruby/GD2 is free software; you can redistribute it and/or modify it under
+# Ruby/Gd2 is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
@@ -22,7 +22,7 @@
 
 require 'matrix'
 
-module GD2
+module Gd2
   class Canvas
     class NoColorSelectedError < StandardError; end
     class NoFontSelectedError < StandardError; end
@@ -58,7 +58,7 @@ module GD2
       end
 
       def draw(image, mode)
-        GD2FFI.send(:gdImageLine, image.image_ptr,
+        Gd2FFIJ.send(:gdImageLine, image.image_ptr,
           @p1.x.to_i, @p1.y.to_i, @p2.x.to_i, @p2.y.to_i, mode.to_i)
         nil
       end
@@ -70,7 +70,7 @@ module GD2
       end
 
       def draw(image, mode)
-        GD2FFI.send(draw_sym, image.image_ptr, @p1.x.to_i, @p1.y.to_i, @p2.x.to_i, @p2.y.to_i, mode.to_i)
+        Gd2FFIJ.send(draw_sym, image.image_ptr, @p1.x.to_i, @p1.y.to_i, @p2.x.to_i, @p2.y.to_i, mode.to_i)
         nil
       end
 
@@ -91,7 +91,7 @@ module GD2
       end
 
       def draw(image, mode)
-        GD2FFI.send(draw_sym, image.image_ptr, @points.map { |point|
+        Gd2FFIJ.send(draw_sym, image.image_ptr, @points.map { |point|
           point.coordinates.pack('i_i_')
         }.join(''), @points.length, mode.to_i)
         nil
@@ -122,7 +122,7 @@ module GD2
       end
 
       def draw(image, mode)
-        GD2FFI.send(:gdImageArc, image.image_ptr, @center.x.to_i, @center.y.to_i,
+        Gd2FFIJ.send(:gdImageArc, image.image_ptr, @center.x.to_i, @center.y.to_i,
           @width.to_i, @height.to_i,
           @range.begin.to_degrees.round.to_i, @range.end.to_degrees.round.to_i, mode.to_i)
         nil
@@ -144,7 +144,7 @@ module GD2
       end
 
       def draw(image, mode)
-        GD2FFI.send(:gdImageFilledArc, image.image_ptr, @center.x.to_i, @center.y.to_i,
+        Gd2FFIJ.send(:gdImageFilledArc, image.image_ptr, @center.x.to_i, @center.y.to_i,
           @width.to_i, @height.to_i,
           @range.begin.to_degrees.round.to_i, @range.end.to_degrees.round.to_i,
           mode.to_i, style.to_i)
@@ -168,7 +168,7 @@ module GD2
       end
 
       def draw(image, mode)
-        GD2FFI.send(:gdImageArc, image.image_ptr, @center.x.to_i, @center.y.to_i,
+        Gd2FFIJ.send(:gdImageArc, image.image_ptr, @center.x.to_i, @center.y.to_i,
           @width.to_i, @height.to_i, 0, 360, mode.to_i)
         nil
       end
@@ -176,7 +176,7 @@ module GD2
 
     class FilledEllipse < Ellipse
       def draw(image, mode)
-        GD2FFI.send(:gdImageFilledEllipse, image.image_ptr, @center.x.to_i, @center.y.to_i,
+        Gd2FFIJ.send(:gdImageFilledEllipse, image.image_ptr, @center.x.to_i, @center.y.to_i,
           @width.to_i, @height.to_i, mode.to_i)
       end
     end
@@ -240,12 +240,12 @@ module GD2
     end
 
     def thickness=(thickness)
-      GD2FFI.send(:gdImageSetThickness, @image.image_ptr, @thickness = thickness.to_i)
+      Gd2FFIJ.send(:gdImageSetThickness, @image.image_ptr, @thickness = thickness.to_i)
     end
 
     def style=(ary)
       if @style = ary
-        GD2FFI.send(:gdImageSetStyle, @image.image_ptr,
+        Gd2FFIJ.send(:gdImageSetStyle, @image.image_ptr,
           ary.map { |c|
             !c ? TRANSPARENT : true == c ? -1 : @image.color2pixel(c)
           }, ary.length)
@@ -254,13 +254,13 @@ module GD2
 
     def brush=(image)
       if @brush = image
-        GD2FFI.send(:gdImageSetBrush, @image.image_ptr, image.image_ptr)
+        Gd2FFIJ.send(:gdImageSetBrush, @image.image_ptr, image.image_ptr)
       end
     end
 
     def tile=(image)
       if @tile = image
-        GD2FFI.send(:gdImageSetTile, @image.image_ptr, image.image_ptr)
+        Gd2FFIJ.send(:gdImageSetTile, @image.image_ptr, image.image_ptr)
       end
     end
 
@@ -331,13 +331,13 @@ module GD2
     end
 
     def fill
-      GD2FFI.send(:gdImageFill, @image.image_ptr, @point.x.to_i, @point.y.to_i, fill_pixel.to_i)
+      Gd2FFIJ.send(:gdImageFill, @image.image_ptr, @point.x.to_i, @point.y.to_i, fill_pixel.to_i)
       self
     end
 
     def fill_to(border)
       # An apparent bug in gd prevents us from using fill_pixel
-      GD2FFI.send(:gdImageFillToBorder, @image.image_ptr, @point.x.to_i, @point.y.to_i,
+      Gd2FFIJ.send(:gdImageFillToBorder, @image.image_ptr, @point.x.to_i, @point.y.to_i,
         @image.color2pixel(border), pixel.to_i)
       self
     end
@@ -404,10 +404,10 @@ module GD2
         BRUSHED
       elsif anti_aliasing?
         if @dont_blend
-          GD2FFI.send(:gdImageSetAntiAliasedDontBlend, @image.image_ptr,
+          Gd2FFIJ.send(:gdImageSetAntiAliasedDontBlend, @image.image_ptr,
             pixel.to_i, @dont_blend.to_i)
         else
-          GD2FFI.send(:gdImageSetAntiAliased, @image.image_ptr, pixel.to_i)
+          Gd2FFIJ.send(:gdImageSetAntiAliased, @image.image_ptr, pixel.to_i)
         end
         ANTI_ALIASED
       else
