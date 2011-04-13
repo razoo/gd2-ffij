@@ -23,11 +23,10 @@
 require 'ffi'
 require 'rbconfig'
 
-# module Gd2
-#   module Gd2FFIJ
-
 module Gd2
   module Gd2FFIJ
+    VERSION = "0.0.3"
+
     def self.gd_library_name
       if ENV['Gd2_LIBRARY_PATH']
         ENV['Gd2_LIBRARY_PATH']
