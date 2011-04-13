@@ -25,7 +25,6 @@ require 'rbconfig'
 
 module GD2
   module GD2FFI
-    VERSION = "0.0.3"
 
     def self.gd_library_name
       if ENV['GD2_LIBRARY_PATH']
